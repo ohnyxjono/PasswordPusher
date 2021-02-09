@@ -1,14 +1,14 @@
-= link_to image_tag("forkme.png", :style => "position: absolute; top: 0; right: 0; border: 0; z-index: 1;", :alt => "Fork me on Github" ), "https://github.com/pglombardo/PasswordPusher"
+= link_to image_tag("forkme.png", :style => "display: none; position: absolute; top: 0; right: 0; border: 0; z-index: 1;", :alt => "Fork me on Github" ), "https://github.com/pglombardo/PasswordPusher"
 = form_for @password do |f|
   %p
     %div.title
-      %span.title Password Pusher
+      = link_to image_tag("logo.png", :style => "width: 40%;"), "/"
       %br
-      %span.tagline Go Ahead.  Email Another Password.
+      %span.tagline Go Ahead. Email Another Password.
   %p.payload
     = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)", :autocomplete => "off" })
   %p
-    Expire secret link and delete the stored password after:
+    %p.orange Expire secret link and delete the stored password after:
     %p.slider_box
       = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)", :oninput => "showDaysValue(this.value)"})
       %span#daysrange
@@ -49,5 +49,5 @@
   = link_to "About", page_path('about')
   \|
   = link_to "FAQ", page_path('faq')
-  \|
-  = link_to "News & Updates", 'https://twitter.com/pwpush'
+  /=\|
+  /= link_to "News & Updates", 'https://twitter.com/pwpush'
