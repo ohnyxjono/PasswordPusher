@@ -1,4 +1,9 @@
 - if @password.expired
+  %p
+    %div.title
+      = link_to image_tag("logo.png", :style => "width: 40%;"), "/"
+      %br
+      %span.tagline Go Ahead. Email Another Password.
   %p.large-yellow-font
     We apologize but this secret link has expired.
   %p
@@ -13,6 +18,11 @@
 
 - else
   - if @first_view
+    %p
+    %div.title
+      = link_to image_tag("logo.png", :style => "width: 40%;"), "/"
+      %br
+      %span.tagline Go Ahead. Email Another Password.
     .share_note
       == This is your password.  Use this secret link to share it:
       %div.input_group
