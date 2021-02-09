@@ -1,3 +1,55 @@
+## Notes about installing on Ubuntu:
+Git Clone needs the SSH key installed on the server. (https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
+SQLite dev needs to be installed (sudo apt get install libsqlite3-dev)
+Need Ruby 2.6.6 installed. Use rbenv and ruby-build
+    Basically: 
+        sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+        git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+        echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+        echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+        source ~/.bashrc
+        type rbenv
+        
+        ## install ruby-build
+        git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+        rbenv install -l
+        rbenv install 2.6.6
+        rbenv global 2.6.6
+        ruby -v
+
+Also need Javascript installed (sudo apt install nodejs)
+Can't remember why, but install yarn:
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update && sudo apt install yarn
+
+There are some issues with the listen gem. comment out config.file_watcher = ActiveSupport::EventedFileUpdateChecker from config/environments/development.rb file
+- https://stackoverflow.com/questions/38663706/loaderror-could-not-load-the-listen-gem-rails-5
+
+Run the app in foreman:
+sudo apt install ruby-foreman
+
+HTTPS:
+Install Caddy (https://caddyserver.com/docs/install#debian-ubuntu-raspbian) and make a reverse proxy to pwpush. run caddy as a service
+Caddy file example: 
+pwpush.domain.co.nz
+
+reverse_proxy localhost:5000
+
+I found running pwpush in a tmux session worked the best/easiest. 
+    make the session by typing tmux
+    ctrl + b to get out of it and back to normal console
+    tmux attach to get back into it
+    
+Restarting / recompiling pwpush after css or other changes (from the PasswordPusher dir):
+    bundle exec rake assets:precompile
+    RAILS_ENV=private bundle exec rake db:setup
+    foreman start internalweb
+
+These notes might be incomplete. I'll update it if/when I rebuild the server or stand up another instance. 
+
+
+
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
 PasswordPusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. 
@@ -72,33 +124,3 @@ Then view the site @ [http://localhost:5000/](http://localhost:5000/).
 
 _Note: You can change the listening port by modifying the
 [Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
-
-# 📼 Credits
-
-Thanks to:
-
-* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
-
-* [@iandunn](https://github.com/iandunn) for better password form security.
-
-* [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
-
-* [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
-
-# 📡 See Also
-
-* I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
-
-* The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
-
-* [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
-
-* [lnfnunes](https://github.com/lnfnunes) created a [NodeJS CLI](https://github.com/lnfnunes/pwpush-cli) wrapper for Password Pusher to be easily used in the terminal.
-
-* [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
-
-* [phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) based off of PasswordPusher
-
-* [bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
-
-
