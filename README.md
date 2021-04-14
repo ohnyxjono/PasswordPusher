@@ -35,9 +35,6 @@ git clone git@github.com:ohnyxjono/PasswordPusher.git
 cd PasswordPusher
 sudo gem install bundler
 sudo bundle install --without development production test --deployment
-bundle exec rake assets:precompile
-RAILS_ENV=private bundle exec rake db:setup
-foreman start internalweb
 ```
 
 There are some issues with the listen gem. (not needed, done by default in this fork)
@@ -59,9 +56,9 @@ Caddy file example:
 `reverse_proxy localhost:5000`
 
 I found running pwpush in a tmux session worked the best/easiest. 
-    make the session by typing tmux
-    ctrl + b to get out of it and back to normal console
-    tmux attach to get back into it
+make the session by typing tmux
+ctrl + b to get out of it and back to normal console
+tmux attach to get back into it
     
 Restarting / recompiling pwpush after css or other changes (from the PasswordPusher dir):
 ```
