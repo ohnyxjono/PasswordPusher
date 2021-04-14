@@ -57,8 +57,11 @@ Caddy file example:
 
 I found running pwpush in a tmux session worked the best/easiest. 
 make the session by typing tmux
+
 ctrl + b to get out of it and back to normal console
+
 tmux attach to get back into it
+
     
 Restarting / recompiling pwpush after css or other changes (from the PasswordPusher dir):
 ```
