@@ -5,7 +5,7 @@ Need Ruby 2.6.6 installed. Use rbenv and ruby-build
 
 Basically: 
 ```
-sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev rbenv
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
@@ -16,22 +16,41 @@ type rbenv
 ## install ruby-build
 ```
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-rbenv install -l
+#rbenv install -l
 rbenv install 2.6.6
 rbenv global 2.6.6
 ruby -v
 ```
 
-Also need Javascript installed (sudo apt install nodejs)
+Also need Javascript installed
+`sudo apt install nodejs`
+
 Can't remember why, but install yarn:
+
 ```
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update && sudo apt install yarn
 ```
 
-There are some issues with the listen gem. comment out config.file_watcher = ActiveSupport::EventedFileUpdateChecker from config/environments/development.rb file
-- https://stackoverflow.com/questions/38663706/loaderror-could-not-load-the-listen-gem-rails-5
+```sh
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
+gem install bundler
+bundle install --without development production test --deployment
+bundle exec rake assets:precompile
+RAILS_ENV=private bundle exec rake db:setup
+foreman start internalweb
+```
+
+There are some issues with the listen gem. 
+comment out config.file_watcher = ActiveSupport::EventedFileUpdateChecker from config/environments/development.rb 
+
+This is discussed here: https://stackoverflow.com/questions/38663706/loaderror-could-not-load-the-listen-gem-rails-5
+
+
+
+
 
 Run the app in foreman:
 ```
