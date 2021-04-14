@@ -34,7 +34,7 @@ sudo apt update && sudo apt install yarn
 git clone git@github.com:ohnyxjono/PasswordPusher.git
 cd PasswordPusher
 sudo gem install bundler
-bundle install --without development production test --deployment
+sudo bundle install --without development production test --deployment
 bundle exec rake assets:precompile
 RAILS_ENV=private bundle exec rake db:setup
 foreman start internalweb
