@@ -14,30 +14,35 @@ type rbenv
 ```
         
 ## install ruby-build
+```
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 rbenv install -l
 rbenv install 2.6.6
 rbenv global 2.6.6
 ruby -v
+```
 
 Also need Javascript installed (sudo apt install nodejs)
 Can't remember why, but install yarn:
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt update && sudo apt install yarn
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
 
 There are some issues with the listen gem. comment out config.file_watcher = ActiveSupport::EventedFileUpdateChecker from config/environments/development.rb file
 - https://stackoverflow.com/questions/38663706/loaderror-could-not-load-the-listen-gem-rails-5
 
 Run the app in foreman:
+```
 sudo apt install ruby-foreman
-
+```
 HTTPS:
 Install Caddy (https://caddyserver.com/docs/install#debian-ubuntu-raspbian) and make a reverse proxy to pwpush. run caddy as a service
 Caddy file example: 
-pwpush.domain.co.nz
+`pwpush.domain.co.nz`
 
-reverse_proxy localhost:5000
+`reverse_proxy localhost:5000`
 
 I found running pwpush in a tmux session worked the best/easiest. 
     make the session by typing tmux
@@ -45,9 +50,11 @@ I found running pwpush in a tmux session worked the best/easiest.
     tmux attach to get back into it
     
 Restarting / recompiling pwpush after css or other changes (from the PasswordPusher dir):
-    bundle exec rake assets:precompile
-    RAILS_ENV=private bundle exec rake db:setup
-    foreman start internalweb
+```
+bundle exec rake assets:precompile
+RAILS_ENV=private bundle exec rake db:setup
+foreman start internalweb
+```
 
 These notes might be incomplete. I'll update it if/when I rebuild the server or stand up another instance. 
 
